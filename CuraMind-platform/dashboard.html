@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-key="admin_dash_title">لوحة المشرف | CuraMind</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* تصميم خاص بلوحة المشرف */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background-color: #34495e; color: var(--medical-white); padding: 20px; box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3); position: sticky; top: 0; height: 100vh; }
+        .sidebar h3 { color: var(--accent-green); }
+        .main-content { flex-grow: 1; padding: 40px; background-color: var(--professional-gray); }
+        .action-card { background-color: var(--medical-white); padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: var(--shadow-light); border-right: 5px solid var(--medical-blue); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 700; }
+        .form-group input[type="text"], .form-group textarea, .form-group select, .form-group input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .content-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .content-table th, .content-table td { border: 1px solid #ddd; padding: 12px; text-align: right; }
+        .content-table th { background-color: var(--soft-blue); color: var(--medical-blue); }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-container" style="justify-content: center; margin-bottom: 30px;">
+                <i class="fas fa-user-shield logo-icon" style="color: var(--soft-pink);"></i>
+                <span class="logo-text">Admin</span>
+            </div>
+            <h3 data-lang-key="admin_welcome">لوحة تحكم المشرف</h3>
+            <nav id="sidebar-nav">
+                <a href="#content" onclick="showSection('content')"><i class="fas fa-list-ul"></i> <span data-lang-key="admin_nav_content">إدارة المحتوى</span></a>
+                <a href="#add-lesson" onclick="showSection('add-lesson')"><i class="fas fa-plus-circle"></i> <span data-lang-key="admin_nav_add">إضافة درس جديد</span></a>
+                <a href="#payments" onclick="showSection('payments')"><i class="fas fa-money-check-alt"></i> <span data-lang-key="admin_nav_payments">إدارة الدفع</span></a>
+                <a href="#users" onclick="showSection('users')"><i class="fas fa-users"></i> <span data-lang-key="admin_nav_users">إدارة المستخدمين</span></a>
+            </nav>
+            <button class="btn btn-secondary" onclick="window.logout()" style="width: 100%; margin-top: 50px;"><i class="fas fa-sign-out-alt"></i> <span data-lang-key="btn_logout">تسجيل الخروج</span></button>
+        </aside>
+
+        <main class="main-content">
+            <h1 style="color: var(--medical-blue);" data-lang-key="admin_main_title">نظام إدارة منصة CuraMind</h1>
+            
+            <section id="content" class="action-card dashboard-section">
+                <h2 data-lang-key="sec_manage_content">إدارة جميع الدروس</h2>
+                <table class="content-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th data-lang-key="table_title">العنوان</th>
+                            <th data-lang-key="table_spec">التخصص</th>
+                            <th data-lang-key="table_year">السنة</th>
+                            <th data-lang-key="table_actions">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="content-table-body">
+                        </tbody>
+                </table>
+            </section>
+            
+            <section id="add-lesson" class="action-card dashboard-section" style="display:none;">
+                <h2 data-lang-key="sec_add_lesson">إضافة/تعديل درس</h2>
+                <form id="lesson-form">
+                    <input type="hidden" id="lesson-id">
+                    <div class="form-group">
+                        <label for="lesson-title" data-lang-key="label_title">عنوان الدرس:</label>
+                        <input type="text" id="lesson-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lesson-specialty" data-lang-key="label_specialty">التخصص:</label>
+                        <select id="lesson-specialty" required>
+                            <option value="medicine" data-lang-key="spec_med_title">الطب</option>
+                            <option value="dentistry" data-lang-key="spec_dent_title">طب الأسنان</option>
+                            <option value="pharmacy" data-lang-key="spec_pharm_title">الصيدلة</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lesson-year" data-lang-key="label_year">السنة الدراسية (1-7):</label>
+                        <input type="number" id="lesson-year" min="1" max="7" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lesson-content" data-lang-key="label_content">المحتوى النصي:</label>
+                        <textarea id="lesson-content" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="lesson-video" data-lang-key="label_video_url">رابط فيديو (YouTube Embed):</label>
+                        <input type="text" id="lesson-video">
+                    </div>
+                    <div class="form-group">
+                        <label for="lesson-qcm" data-lang-key="label_qcm">اختبارات QCM (JSON):</label>
+                        <textarea id="lesson-qcm" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent"><i class="fas fa-save"></i> <span data-lang-key="btn_save_lesson">حفظ الدرس</span></button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()"><i class="fas fa-times-circle"></i> <span data-lang-key="btn_cancel">إلغاء</span></button>
+                    <button type="button" class="btn btn-primary" onclick="window.previewLesson()"><i class="fas fa-eye"></i> <span data-lang-key="btn_preview">معاينة</span></button>
+                </form>
+            </section>
+
+            <section id="payments" class="action-card dashboard-section" style="display:none;">
+                <h2 data-lang-key="sec_manage_payments">إدارة نظام الدفع</h2>
+                <p data-lang-key="payment_mock_desc">هنا يتم إدارة سجلات المدفوعات وتحديث حالة اشتراكات الطلاب.</p>
+                <h4 data-lang-key="payment_pricing_table">جدول الأسعار الحالي:</h4>
+                <pre id="pricing-display"></pre>
+                <button class="btn btn-primary" onclick="alert('سيتم فتح واجهة تعديل الأسعار')"><i class="fas fa-edit"></i> <span data-lang-key="btn_edit_pricing">تعديل الأسعار</span></button>
+            </section>
+
+            <section id="users" class="action-card dashboard-section" style="display:none;">
+                <h2 data-lang-key="sec_manage_users">إدارة المستخدمين</h2>
+                <p data-lang-key="users_mock_desc">هنا يتم عرض قائمة الطلاب وإدارة صلاحيات المشرفين وحالة الاشتراكات.</p>
+                <p>يمكن للمشرفين الإطلاع على قائمة المستخدمين هنا (يتم تخزينهم في localStorage)</p>
+            </section>
+
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script src="content-manager.js"></script>
+    <script>
+        // التحقق من صلاحيات المشرف والتوجيه
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('curamind_session'));
+            
+            if (!user || user.role !== 'admin') {
+                alert("غير مصرح لك بالوصول. يرجى تسجيل الدخول كمشرف.");
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            window.loadContentTable();
+            document.getElementById('pricing-display').textContent = JSON.stringify(window.PRICING, null, 2);
+            window.showSection('content'); 
+        });
+        
+        window.showSection = function(sectionId) {
+            document.querySelectorAll('.dashboard-section').forEach(sec => sec.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+            
+            document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`a[href="#${sectionId}"]`).classList.add('active');
+        }
+
+        window.resetForm = function() {
+            document.getElementById('lesson-form').reset();
+            document.getElementById('lesson-id').value = '';
+        }
+        
+        window.previewLesson = function() {
+            const title = document.getElementById('lesson-title').value;
+            const content = document.getElementById('lesson-content').value;
+            alert(`معاينة الدرس:\nالعنوان: ${title}\nالمحتوى (أول 50 حرف): ${content.substring(0, 50)}...`);
+        }
+    </script>
+</body>
+</html>

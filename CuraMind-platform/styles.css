@@ -1,0 +1,452 @@
+/* Custom CSS Variables (الألوان الرئيسية) */
+:root {
+    --medical-blue: #1a73e8;       /* اللون الأزرق الطبي */
+    --soft-blue: #e8f0fe;          /* أزرق فاتح */
+    --medical-white: #ffffff;      /* أبيض نقي */
+    --soft-pink: #fce4ec;          /* وردي ناعم */
+    --professional-gray: #f8f9fa;  /* رمزي محترف */
+    --accent-green: #34a853;       /* أخضر للتأكيد */
+    --text-color: #333;
+    --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Base Styles & Typography */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--medical-white);
+    text-align: right; 
+    direction: rtl; 
+}
+
+a {
+    text-decoration: none;
+    color: var(--medical-blue);
+}
+
+/* Background Medical Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8f0fe' fill-opacity='0.5'%3E%3Cpath d='M36 34L26 24V0h10v34zM50 14L40 4V0h10v14zM58 24L48 14V0h10v24zM60 49L50 39V0h10v49zM30 49L20 39V0h10v49zM18 64L8 54V0h10v64zM0 64L-10 54V0h10v64z'/%3E%3Cpath d='M10 60L0 50V20h10v40zM40 60L30 50V20h10v40zM25 60L15 50V20h10v40zM55 60L45 50V20h10v40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); 
+    z-index: -1;
+    opacity: 0.1;
+}
+
+/* Header Styles */
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: var(--medical-white);
+    box-shadow: var(--shadow-light);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--medical-blue);
+}
+
+.logo-icon {
+    margin-left: 10px; 
+    color: var(--accent-green);
+}
+
+.main-nav a {
+    margin-right: 20px;
+    color: var(--text-color);
+    font-weight: 400;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover {
+    color: var(--medical-blue);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.lang-switcher {
+    padding: 5px 10px;
+    border: 1px solid var(--soft-blue);
+    border-radius: 5px;
+    background-color: var(--professional-gray);
+    margin-left: 15px; 
+    cursor: pointer;
+}
+
+/* Buttons (CTA, General) */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--medical-blue);
+    color: var(--medical-white);
+}
+
+.btn-primary:hover {
+    background-color: #145cb8;
+}
+
+.btn-accent {
+    background-color: var(--accent-green);
+    color: var(--medical-white);
+}
+
+.btn-accent:hover {
+    background-color: #2a7d43;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--medical-blue);
+    color: var(--medical-blue);
+}
+
+.btn-secondary:hover {
+    background-color: var(--soft-blue);
+}
+
+.btn-link {
+    color: var(--medical-blue);
+    background: none;
+    padding: 5px 0;
+    font-weight: 400;
+}
+
+/* Sections Styling */
+.section {
+    padding: 80px 5%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 20px;
+    color: var(--medical-blue);
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Hero Section */
+#hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 70vh;
+    background-color: var(--soft-blue);
+    padding-top: 100px;
+    position: relative;
+    background: linear-gradient(135deg, var(--soft-blue) 0%, var(--medical-white) 100%);
+}
+
+.hero-content {
+    max-width: 55%;
+}
+
+#hero-section h1 {
+    font-size: 3rem;
+    line-height: 1.2;
+    color: var(--text-color);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-buttons .btn, .cta-buttons a {
+    margin-left: 15px;
+}
+
+.stats-bar {
+    display: flex;
+    margin-top: 40px;
+    gap: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item i {
+    font-size: 1.5rem;
+    color: var(--medical-blue);
+    margin-bottom: 5px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-green);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+/* Specialties Section */
+#specialties-section {
+    background-color: var(--professional-gray);
+}
+
+.specialties-grid {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
+
+.specialty-card {
+    background-color: var(--medical-white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    text-align: center;
+    flex: 1;
+    max-width: 350px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-top: 5px solid var(--soft-pink);
+}
+
+.specialty-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-icon {
+    font-size: 3rem;
+    color: var(--medical-blue);
+    margin-bottom: 15px;
+}
+
+.specialty-card[data-specialty="dentistry"] .card-icon { color: var(--accent-green); }
+.specialty-card[data-specialty="pharmacy"] .card-icon { color: #ff6f61; }
+
+/* Features Section */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-item {
+    background-color: var(--medical-white);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-right: 4px solid var(--medical-blue); 
+    transition: background-color 0.3s;
+}
+
+.feature-item i {
+    font-size: 2rem;
+    color: var(--accent-green);
+    margin-bottom: 15px;
+}
+
+.feature-item h4 {
+    margin-top: 0;
+    color: var(--text-color);
+}
+
+/* Pricing Section Styles */
+#pricing-section {
+    background-color: var(--medical-white);
+    padding: 80px 5%;
+    text-align: center;
+}
+
+#pricing-section h2 i {
+    color: var(--accent-green);
+    margin-left: 10px;
+}
+
+.pricing-table-container {
+    max-width: 900px;
+    margin: 40px auto;
+    overflow-x: auto;
+    box-shadow: var(--shadow-light);
+    border-radius: 12px;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--medical-white);
+    min-width: 600px;
+}
+
+.pricing-table th, .pricing-table td {
+    padding: 15px;
+    border: 1px solid var(--professional-gray);
+}
+
+.pricing-table th {
+    background-color: var(--soft-blue);
+    color: var(--medical-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.pricing-table td {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.pricing-table tbody tr:nth-child(even) {
+    background-color: var(--professional-gray);
+}
+
+.pricing-table tbody tr:hover {
+    background-color: var(--soft-pink);
+    transition: background-color 0.3s;
+}
+
+.pricing-table .highlight-row {
+    font-weight: 700;
+    background-color: #ffe0b2; 
+}
+
+.payment-cta {
+    margin-top: 40px;
+}
+
+.payment-cta .btn {
+    font-size: 1.1rem;
+    padding: 12px 30px;
+}
+
+
+/* Footer & Support Section */
+#support-section {
+    background-color: var(--medical-blue);
+    color: var(--medical-white);
+    padding: 40px 5%;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-content h4 {
+    color: var(--soft-pink);
+    margin-bottom: 15px;
+}
+
+.footer-content p, .footer-content li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-content i {
+    margin-left: 10px;
+    color: var(--accent-green);
+}
+
+.footer-content a {
+    color: var(--medical-white);
+    transition: color 0.3s;
+}
+
+.footer-content a:hover {
+    color: var(--soft-pink);
+}
+
+.help-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.8rem;
+}
+
+/* Responsive Design (التجاوبية) */
+@media (max-width: 992px) {
+    #hero-section {
+        flex-direction: column;
+        text-align: center;
+        min-height: auto;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .cta-buttons {
+        justify-content: center;
+        display: flex;
+    }
+
+    .main-nav {
+        display: none; 
+    }
+
+    .specialties-grid {
+        flex-direction: column;
+    }
+
+    .specialty-card {
+        max-width: 100%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .contact-info, .help-links {
+        text-align: center;
+    }
+
+    .contact-info p {
+        justify-content: center;
+    }
+}
